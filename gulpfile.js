@@ -1,7 +1,7 @@
 // Load our plugins
 var	gulp			 = require('gulp'),
 	sass			   = require('gulp-sass'),  // Our sass compiler
-	webpack      = require('gulp-webpack'),
+	webpack      = require('webpack-stream'),
 	named				 = require('vinyl-named'),
 	notify			 = require('gulp-notify'), // Basic gulp notificatin using OS
 	sourcemaps	 = require('gulp-sourcemaps'), // Sass sourcemaps
