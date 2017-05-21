@@ -10,6 +10,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.js' // 'vue/dist/vue.common.js' for webpack 1
     }
   },
+  plugins: [new webpack.optimize.UglifyJsPlugin()],
   module: {
     rules: [
       {

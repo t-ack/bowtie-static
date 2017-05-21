@@ -1,6 +1,7 @@
 // Load our plugins
 var	gulp			 = require('gulp'),
 	sass			   = require('gulp-sass'),  // Our sass compiler
+	wp2					 = require('webpack'), // webpack-stream by default references webpack 1, so we need to force webpack 2
 	webpack      = require('webpack-stream'),
 	named				 = require('vinyl-named'),
 	notify			 = require('gulp-notify'), // Basic gulp notificatin using OS
@@ -81,7 +82,7 @@ gulp.task('styles', function() {
 gulp.task('js', function() {
 	return gulp.src(paths.jsPath + '*.js')
 		.pipe(named())
-		.pipe(webpack(require('./webpack.config.js')))
+		.pipe(webpack(require('./webpack.config.js'), wp2))
 		.pipe(gulp.dest(paths.destPath + 'js'))
 		.pipe(browserSync.reload({stream:true}))
 		.pipe(notify({ message: "✔︎ Scripts task complete!"}));
