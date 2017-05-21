@@ -1,17 +1,17 @@
 // Load our plugins
-var	gulp			= require('gulp'),
-	sass			= require('gulp-sass'),  // Our sass compiler
-	notify			= require('gulp-notify'), // Basic gulp notificatin using OS
-	sourcemaps		= require('gulp-sourcemaps'), // Sass sourcemaps
-	autoprefixer		= require('gulp-autoprefixer'), // Adds vendor prefixes for us
-	svgSprite		= require('gulp-svg-sprite'),
-	svgmin 			= require('gulp-svgmin'),
-	size			= require('gulp-size'),
-	browserSync		= require('browser-sync'), // Sends php, js, and css updates to browser for us
-	concat			= require('gulp-concat'), // Concat our js
-	uglify			= require('gulp-uglify'),
-	babel			= require('gulp-babel'),
-	del			= require('del');
+var	gulp			 = require('gulp'),
+	sass			   = require('gulp-sass'),  // Our sass compiler
+	webpack      = require('gulp-webpack'),
+	named				 = require('vinyl-named'),
+	notify			 = require('gulp-notify'), // Basic gulp notificatin using OS
+	sourcemaps	 = require('gulp-sourcemaps'), // Sass sourcemaps
+	autoprefixer = require('gulp-autoprefixer'), // Adds vendor prefixes for us
+	size			   = require('gulp-size'),
+	browserSync	 = require('browser-sync'), // Sends php, js, and css updates to browser for us
+	concat			 = require('gulp-concat'), // Concat our js
+	uglify			 = require('gulp-uglify'),
+	babel			   = require('gulp-babel'),
+	del			     = require('del');
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -79,13 +79,9 @@ gulp.task('styles', function() {
 ////////////////////////////////////////////////////////////////////////////////
 
 gulp.task('js', function() {
-	return gulp.src(paths.jsPath + '**/*.js')
-		.pipe(concat('app.js'))
-		.pipe(gulp.dest(paths.destPath + 'js'))
-		.pipe(uglify().on('error', notify.onError(function(error) {
-			return "Error: " + error.message;
-			}))
-		)
+	return gulp.src(paths.jsPath + '*.js')
+		.pipe(named())
+		.pipe(webpack(require('./webpack.config.js')))
 		.pipe(gulp.dest(paths.destPath + 'js'))
 		.pipe(browserSync.reload({stream:true}))
 		.pipe(notify({ message: "✔︎ Scripts task complete!"}));
@@ -156,7 +152,6 @@ gulp.task('foundation-js', function() {
 gulp.task('watch', function() {
 	gulp.watch(paths.sassPath + '**/*.scss', ['styles']);
 	gulp.watch(paths.jsPath + '**/*.js', ['js']);
-	gulp.watch(paths.imgPath + 'svg/**/*.svg', ['svg-sprite']);
 });
 
 
