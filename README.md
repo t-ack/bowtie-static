@@ -10,7 +10,7 @@ $ yarn install
 $ npm install
 ```
 
-Update the BrowserSync proxy URL in `gulpfile.js` or remove watch from the default task to disable it.
+Update the BrowserSync proxy URL in `gulpfile.js` or remove browser-sync from the default task to disable it.
 
 ```
 $ gulp
