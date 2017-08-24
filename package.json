@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "start": "node_modules/.bin/webpack-dev-server --open",
+    "watch": "webpack --watch",
     "build": "webpack"
   },
   "author": "The Infinite Agency",

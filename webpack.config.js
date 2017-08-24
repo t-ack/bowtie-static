@@ -9,7 +9,7 @@ const config = {
 	entry: './assets/js/app.js',
 	output: {
 		filename: 'js/app.js',
-		path: path.resolve(__dirname, './dist'),
+		path: path.resolve(__dirname, './assets/dist'),
 		publicPath: '/dist/',
 	},
 	module: {
@@ -36,7 +36,18 @@ const config = {
 		],
 	},
 	plugins: [
-		new ExtractTextPlugin('css/[name].css')
+		new BrowserSyncPlugin({
+			host: 'localhost',
+      port: 3000,
+			server: true,
+      files: [
+        '**/*.html'
+      ]
+		}),
+		new ExtractTextPlugin({
+			filename: 'css/[name].css',
+			publicPath: '/'
+		})
 	],
 	devtool: 'source-map'
 };
