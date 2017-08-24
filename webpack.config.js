@@ -1,38 +1,53 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = {
-  output: {
-    filename: '[name].js',
-  },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.js' // 'vue/dist/vue.common.js' for webpack 1
-    }
-  },
-  plugins: [new webpack.optimize.UglifyJsPlugin()],
-  module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-          }
-        }
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
-  }
+const config = {
+	entry: './assets/js/app.js',
+	output: {
+		filename: 'js/app.js',
+		path: path.resolve(__dirname, './dist'),
+		publicPath: '/dist/',
+	},
+	module: {
+		rules: [
+			{
+				test: /\.scss$/,
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [ 'css-loader', 'postcss-loader', 'sass-loader' ]
+				})
+			},
+			{
+				test: /\.js$/,
+				include: [
+					path.resolve(__dirname, 'assets/main.js'),
+					path.resolve(__dirname, 'assets/js'),
+					path.resolve(__dirname, 'node_modules/foundation-sites/js')
+				],
+				loader: 'babel-loader',
+				options: {
+					presets: ['es2015']
+				}
+			}
+		],
+	},
+	plugins: [
+		new ExtractTextPlugin('css/[name].css')
+	],
+	devtool: 'source-map'
+};
+
+if (process.env.NODE_ENV === 'production') {
+	config.plugins.push(
+		new UglifyJSPlugin({
+			sourceMap: true,
+		}),
+		new OptimizeCssAssetsPlugin()
+	);
 }
+
+module.exports = config;

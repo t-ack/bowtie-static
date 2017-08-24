@@ -1,5 +1,2 @@
-jQuery(document).ready(function($) {
-
-$(document).foundation();
-
-});
+import './foundation.js'
+import '../sass/app.scss'
