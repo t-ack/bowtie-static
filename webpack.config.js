@@ -10,8 +10,15 @@ const config = {
 	output: {
 		filename: 'js/app.js',
 		path: path.resolve(__dirname, './assets/dist'),
-		publicPath: '/dist/',
+		publicPath: '/',
 	},
+	resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+			'@': path.resolve(__dirname, '.')
+    }
+  },
 	module: {
 		rules: [
 			{
@@ -22,9 +29,17 @@ const config = {
 				})
 			},
 			{
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+					name: '[path][name].[ext]',
+					useRelativePath: false,
+					emitFile: false //Prevents files from moving since they're correctly referenced
+        }
+      },
+			{
 				test: /\.js$/,
 				include: [
-					path.resolve(__dirname, 'assets/main.js'),
 					path.resolve(__dirname, 'assets/js'),
 					path.resolve(__dirname, 'node_modules/foundation-sites/js')
 				],
@@ -46,7 +61,7 @@ const config = {
 		}),
 		new ExtractTextPlugin({
 			filename: 'css/[name].css',
-			publicPath: '/'
+			// publicPath: '/'
 		})
 	],
 	devtool: 'source-map'

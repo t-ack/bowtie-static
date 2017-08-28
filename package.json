@@ -4,9 +4,8 @@
   "version": "0.0.1",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --open",
-    "watch": "webpack --watch",
-    "build": "webpack"
+    "start": "webpack --watch",
+    "build": "NODE_ENV=production webpack"
   },
   "author": "The Infinite Agency",
   "license": "ISC",
@@ -21,6 +20,7 @@
     "css-loader": "^0.28.4",
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
     "foundation-sites": "^6.4.1",
     "node-sass": "^4.5.3",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
