@@ -4,6 +4,7 @@ Starter for a static Foundation 6.4 site with Webpack and BrowserSync
 ## Usage
 
 To start a BrowserSync server and watch your files you can use `npm start`.
+
 Production ready files can be built using `npm run build`.
 
 ## Webpack & BrowserSync
