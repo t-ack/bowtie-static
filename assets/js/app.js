@@ -1,2 +1,2 @@
-import './foundation.js'
+//import './foundation.js'
 import '../sass/app.scss'
