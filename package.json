@@ -30,5 +30,9 @@
     "uglify-es": "git://github.com/mishoo/UglifyJS2#harmony",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.5.5"
+  },
+  "dependencies": {
+    "vue-loader": "^13.4.0",
+    "webpack-build-notifier": "^0.1.16"
   }
 }
