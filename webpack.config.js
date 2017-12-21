@@ -56,13 +56,16 @@ const config = {
 				],
 				loader: 'babel-loader',
 				options: {
-					presets: ['es2015']
+					presets: ['env']
 				}
 			}
 		],
 	},
 	plugins: [
-		new WebpackBuildNotifierPlugin(),
+		new WebpackBuildNotifierPlugin({
+			sound: 'Funk',
+			successSound: 'Pop'
+		}),
 		new BrowserSyncPlugin({
 			host: 'localhost',
       port: 3000,
